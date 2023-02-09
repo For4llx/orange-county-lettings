@@ -32,6 +32,8 @@ def test_letting_view():
     letting.save()
     path = reverse("lettings:letting", kwargs={"letting_id": 1})
     response = client.get(path)
+    content = response.content.decode()
 
+    assert letting.title in content
     assert response.status_code == 200
     assertTemplateUsed(response, "letting.html")
