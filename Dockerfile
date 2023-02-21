@@ -13,8 +13,9 @@ RUN pip install --no-cache-dir --upgrade -r requirements.txt
 # Copy all local file into "app"
 COPY . /app
 
-ENV PORT=8000
+# for local usage
+# ENV PORT=8000
+# EXPOSE 8000
+# CMD ["python3", "manage.py","runserver", "0.0.0.0:8000"]
 
-EXPOSE 8000
-
-CMD ["python3", "manage.py","runserver", "0.0.0.0:8000"]
+CMD gunicorn oc_lettings_site.wsgi:application --bind 0.0.0.0:$PORT
