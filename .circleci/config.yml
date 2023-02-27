@@ -42,13 +42,7 @@ jobs:
       - run:
           name: push docker image
           command: docker push nobimeromeo/python-oc-lettings:$CIRCLE_BRANCH
-  
-  deploy_to_heroku:
-      docker:
-      - image: circleci/python:latest
-      steps:
-        - checkout
-        - 
+
 
 
 
