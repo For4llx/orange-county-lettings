@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  tests:
+  build:
     docker:
       - image: circleci/python:latest
     steps:
@@ -9,6 +9,12 @@ jobs:
       - run:
           name: install requirements
           command: pip install --no-cache-dir --upgrade -r requirements.txt
+
+  test:
+    docker:
+      - image: circleci/python:latest
+    steps:
+      - checkout
       - run:
           name: pytest
           command: pytest
