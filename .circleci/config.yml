@@ -18,3 +18,41 @@ jobs:
       - run:
           name: pytest
           command: pytest
+  
+  linting:
+    docker:
+      - image: circleci/python:latest
+    steps:
+      - checkout
+      - run:
+          name: flake8
+          command: flake8
+  
+  push_to_docker_hub:
+    docker:
+      - image: circleci/python:latest
+    steps:
+      - checkout
+      - run:
+          name: authentification to docker hub
+          command: echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
+      - run:
+          name: build docker image
+          command: docker build -t nobimeromeo/python-oc-lettings:$CIRCLE_BRANCH .
+      - run:
+          name: push docker image
+          command: docker push nobimeromeo/python-oc-lettings:$CIRCLE_BRANCH
+  
+  deploy_to_heroku:
+      docker:
+      - image: circleci/python:latest
+      steps:
+        - checkout
+        - 
+
+
+
+
+  
+
+
