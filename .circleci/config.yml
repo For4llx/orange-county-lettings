@@ -10,5 +10,5 @@ jobs:
           name: install requirements
           command: pip install --no-cache-dir --upgrade -r requirements.txt
       - run:
-        name: pytest
-        command: pytest
+          name: pytest
+          command: pytest
