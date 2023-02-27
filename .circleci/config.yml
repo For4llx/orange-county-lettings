@@ -2,20 +2,10 @@ version: 2.1
 
 jobs:
   build:
-    machine:
-      image: ubuntu-2204:2022.04.2
+    docker:
+      - image: circleci/python:latest
     steps:
-      - run:
-          name: pytest
-          command: pytest
       - checkout
-      # start proprietary DB using private Docker image
-      # with credentials stored in the UI
-      - run: |
-        echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
-
-      # build the application image
-      - run: docker build -t nobimeromeo/python-oc-lettings:$CIRCLE_BRANCH .
-
-      # deploy the image
-      - run: docker push nobimeromeo/python-oc-lettings:$CIRCLE_BRANCH
+      - run:
+          name: install requirements
+          command: pip install --no-cache-dir --upgrade -r requirements.txt
