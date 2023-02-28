@@ -25,7 +25,7 @@ jobs:
           command: flake8
   push_to_docker_hub:
     docker:
-      - image: circleci/python:latest
+      - image: ubuntu-2204:2022.04.2
     steps:
       - checkout
       - run:
