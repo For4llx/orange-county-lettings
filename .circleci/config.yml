@@ -17,7 +17,7 @@ jobs:
       - run:
           name: pytest
           command: pytest
-  linting:
+  lint:
     docker:
       - image: circleci/python:latest
     steps:
@@ -39,3 +39,14 @@ jobs:
       - run:
           name: push docker image
           command: docker push nobimeromeo/python-oc-lettings:$CIRCLE_BRANCH
+
+workflows:
+  version: 2.1
+  deploy:
+    jobs:
+      - test
+      - lint
+      - push_to_docker_hub:
+          requires:
+            - test
+            - lint
