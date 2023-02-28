@@ -33,10 +33,10 @@ jobs:
           command: echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
       - run:
           name: build docker image
-          command: docker build -t nobimeromeo/python-oc-lettings:$CIRCLE_BRANCH .
+          command: docker build -t nobimeromeo/python-oc-lettings:main .
       - run:
           name: push docker image
-          command: docker push nobimeromeo/python-oc-lettings:$CIRCLE_BRANCH
+          command: docker push nobimeromeo/python-oc-lettings:main
 
 workflows:
   version: 2.1
