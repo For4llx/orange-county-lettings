@@ -25,7 +25,7 @@ jobs:
           command: flake8
   push_to_docker_hub:
     machine:
-      - image: ubuntu-2204:2022.04.2
+      image: ubuntu-2204:2022.04.2
     steps:
       - checkout
       - run:
