@@ -32,11 +32,8 @@ jobs:
           name: authentification to docker hub
           command: echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
       - run:
-          name: test
-          command: echo "docker --version"
-      - run:
           name: build docker image
-          command: docker build -t nobimeromeo/python-oc-lettings:$CIRCLE_BRANCH .
+          command: docker build .
       - run:
           name: push docker image
           command: docker push nobimeromeo/python-oc-lettings:$CIRCLE_BRANCH
