@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  build:
+  install_requirements:
     docker:
       - image: circleci/python:latest
     steps:
@@ -9,7 +9,6 @@ jobs:
       - run:
           name: install requirements
           command: pip install --no-cache-dir --upgrade -r requirements.txt
-
   test:
     docker:
       - image: circleci/python:latest
@@ -18,7 +17,6 @@ jobs:
       - run:
           name: pytest
           command: pytest
-  
   linting:
     docker:
       - image: circleci/python:latest
@@ -27,7 +25,6 @@ jobs:
       - run:
           name: flake8
           command: flake8
-  
   push_to_docker_hub:
     docker:
       - image: circleci/python:latest
@@ -42,11 +39,3 @@ jobs:
       - run:
           name: push docker image
           command: docker push nobimeromeo/python-oc-lettings:$CIRCLE_BRANCH
-
-
-
-
-
-  
-
-
