@@ -14,9 +14,7 @@ jobs:
       - image: circleci/python:latest
     steps:
       - checkout
-      - run:
-          name: install requirements
-          command: pip install --no-cache-dir --upgrade -r requirements.txt
+      - install requirements
       - run:
           name: pytest
           command: pytest
