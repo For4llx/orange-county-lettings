@@ -75,5 +75,22 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 - Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
-# python-oc-lettings
-# python-oc-lettings
+
+#### Déploiement
+
+Configuration requise pour le déploiement
+
+- Aller dans oc_lettings_site/settings.py et assurer vous que  ALLOWED_HOSTS=["*"] et DEBUG=False soit configuré.
+
+Utilisation de Heroku comme hébergeur.
+
+- Créer un compte Heroku à l'adresse suivante https://www.heroku.com/
+- Installer le CLI pour Heroku compatible avec votre OS à l'adresse suivante https://devcenter.heroku.com/articles/heroku-cli
+- Vérifier que Heroku est bien installé avec la commande `Heroku --version`
+- Dans le terminal lancer la commande `Heroku login` afin de se connecter à Heroku
+- Entrer vos informations personnels pour vous authentifier
+- Dans le terminal lancer la commande `Heroku container:login` afin de se connecter à vos containers
+- Dans le terminal lancer la commande `Heroku create` pour créer un repository ou `Heroku create "app name"`, si vous voulez précissez le nom de votre application, sinon un nom sera donné par defaut
+- Dans le terminal lancer la commande au niveau de votre dockerfile (vérifier avec la commande `ls`, Dockerfile devrait être présent) `Heroku container:push web --app "app name"` pour déposer votre container sur Heroku
+- Dans le terminal lancer la commande `Heroku container:release web --app "app name"` afin de compléter le déploiement et rendre le site accèssible.
+- L'application web devrait maintenant être présente à l'url "https://app-name.herokuapp.com/". Remplacez app-name par le nom de votre application.
