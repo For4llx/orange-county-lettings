@@ -37,11 +37,9 @@ jobs:
       - run:
           name: push docker image
           command: docker push nobimeromeo/python-oc-lettings:$CIRCLE_BRANCH
-  deploy_to_heroku:
-
 workflows:
   version: 2.1
-  deploy:
+  deploy_to_heroku:
     jobs:
       - test
       - lint
@@ -49,6 +47,4 @@ workflows:
           requires:
             - test
             - lint
-      - deploy_to_heroku:
-          requires:
-            - push_to_docker_hub
+
