@@ -1,0 +1,55 @@
+version: 2.1
+orbs:
+  heroku: circleci/heroku:latest
+
+jobs:
+  test:
+    docker:
+      - image: circleci/python:latest
+    steps:
+      - checkout
+      - run:
+          name: install requirements
+          command: pip install --no-cache-dir --upgrade -r requirements.txt
+      - run:
+          name: pytest
+          command: pytest
+  lint:
+    docker:
+      - image: circleci/python:latest
+    steps:
+      - checkout
+      - run:
+          name: install requirements
+          command: pip install --no-cache-dir --upgrade -r requirements.txt
+      - run:
+          name: flake8
+          command: flake8
+  push_to_docker_hub:
+    machine:
+      image: ubuntu-2204:2022.04.2
+    steps:
+      - checkout
+      - run:
+          name: authentification to docker hub
+          command: echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
+      - run:
+          name: build docker image
+          command: docker build -t nobimeromeo/python-oc-lettings:$CIRCLE_BRANCH .
+      - run:
+          name: push docker image
+          command: docker push nobimeromeo/python-oc-lettings:$CIRCLE_BRANCH
+
+workflows:
+  version: 2.1
+  deploy_to_heroku:
+    jobs:
+      - test
+      - lint
+      - push_to_docker_hub:
+          requires:
+            - test
+            - lint
+      - heroku/deploy-via-git:
+          requires:
+            - push_to_docker_hub
