@@ -36,7 +36,7 @@ jobs:
           command: docker build .
       - run:
           name: push docker image
-          command: docker push nobimeromeo/python-oc-lettings:$CIRCLE_BRANCH
+          command: docker push
 
 workflows:
   version: 2.1
