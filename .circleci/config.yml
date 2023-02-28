@@ -29,14 +29,17 @@ jobs:
     steps:
       - checkout
       - run:
+          name: install requirements
+          command: pip install --no-cache-dir --upgrade -r requirements.txt
+      - run:
           name: authentification to docker hub
           command: echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
       - run:
           name: build docker image
-          command: docker build -t nobimeromeo/python-oc-lettings:main .
+          command: docker build -t nobimeromeo/python-oc-lettings:$CIRCLE_BRANCH .
       - run:
           name: push docker image
-          command: docker push nobimeromeo/python-oc-lettings:main
+          command: docker push nobimeromeo/python-oc-lettings:$CIRCLE_BRANCH
 
 workflows:
   version: 2.1
