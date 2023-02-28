@@ -44,9 +44,15 @@ workflows:
   version: 2.1
   deploy:
     jobs:
-      - test
-      - lint
+      - install_requirements
+      - test:
+          requires:
+            - install_requirements
+      - lint:
+          requires:
+            - install_requirements
       - push_to_docker_hub:
           requires:
+            - install_requirements
             - test
             - lint
