@@ -1,20 +1,17 @@
 version: 2.1
 
+install_requirements: &install_requirements
+  - run:
+      name: install requirements
+      command: pip install --no-cache-dir --upgrade -r requirements.txt
+
 jobs:
-  install_requirements:
-    docker:
-      - image: circleci/python:latest
-    steps:
-      - checkout
-      - run:
-          name: install requirements
-          command: pip install --no-cache-dir --upgrade -r requirements.txt
   test:
     docker:
       - image: circleci/python:latest
     steps:
       - checkout
-      - install requirements
+      <<: *install_requirements
       - run:
           name: pytest
           command: pytest
@@ -23,6 +20,7 @@ jobs:
       - image: circleci/python:latest
     steps:
       - checkout
+      <<: *install_requirements
       - run:
           name: flake8
           command: flake8
